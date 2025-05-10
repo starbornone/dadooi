@@ -1,9 +1,23 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import { PresentationControls } from "~/components/PresentationControls";
-import { PresentationProvider } from "~/context/PresentationContext";
+import {
+  PresentationProvider,
+  usePresentation,
+} from "~/context/PresentationContext";
 import { Slide } from "~/components/Slide";
-import { SlideBackground } from "~/components/SlideBackground";
+import {
+  AgeOfAverage,
+  AiHaiku,
+  AiSunset,
+  Artists,
+  Bestsellers,
+  CadavreExquis,
+  Dadooi,
+  LoveStory,
+  Music,
+  StandOut,
+} from "~/slides";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,57 +30,68 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const TOTAL_SLIDES = 5;
+function Header() {
+  const { currentSlide, totalSlides } = usePresentation();
+
+  return (
+    <div className="fixed flex items-center justify-between w-full gap-2 py-6 px-12 z-50 bg-midnight font-neon">
+      <div className="uppercase">DevCamp 2025</div>
+      <div className="flex items-center gap-2">
+        <span className="text-lavender">{currentSlide + 1}</span>
+        <span className="text-aqua">/</span>
+        <span className="text-teal">{totalSlides}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function Index() {
+  const slides = [
+    {
+      component: <Dadooi />,
+    },
+    {
+      component: <AiSunset />,
+    },
+    {
+      component: <AiHaiku />,
+    },
+    {
+      component: <StandOut />,
+    },
+    {
+      component: <LoveStory />,
+    },
+    {
+      component: <AgeOfAverage />,
+    },
+    {
+      component: <Bestsellers />,
+    },
+    {
+      component: <Artists />,
+    },
+    {
+      component: <Music />,
+    },
+    {
+      component: <CadavreExquis />,
+    },
+  ];
+
+  const TOTAL_SLIDES = slides.length;
+
   return (
     <PresentationProvider totalSlides={TOTAL_SLIDES}>
       <div className="relative h-screen w-screen overflow-hidden">
+        <Header />
         <div className="h-full w-full">
           {/* ------------------------ */}
-          <Slide
-            slideIndex={0}
-            transitionIn="fade-in"
-            transitionOut="slide-out-left"
-          >
-            <SlideBackground imageUrl="/artem-bryzgalov-r2CAjGQ0gSI-unsplash.jpg">
-              <div className="flex h-full items-center justify-center">
-                <div className="text-center text-white p-8">
-                  <h1 className="text-7xl font-bold mb-6 font-neon">
-                    Do Androids Dream of
-                    <br />
-                    Original Ideas?
-                  </h1>
-                  <p className="text-xl max-w-2xl mx-auto">
-                    Creativity in the age of AI
-                  </p>
-                </div>
-              </div>
-            </SlideBackground>
-          </Slide>
-          {/* Slide 2 */}
-          <Slide
-            slideIndex={1}
-            transitionIn="slide-in-right"
-            transitionOut="slide-out-left"
-          >
-            <div className="flex h-full flex-col justify-center p-16 bg-white dark:bg-gray-900">
-              <h2 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">
-                AI: Faster, Cheaper, More Generic
-              </h2>
-              <ul className="space-y-6 text-xl text-gray-700 dark:text-gray-200">
-                <li className="opacity-0 animate-[fadeIn_0.5s_0.3s_forwards]">
-                  ✓ AI generates content at unprecedented speed
-                </li>
-                <li className="opacity-0 animate-[fadeIn_0.5s_0.6s_forwards]">
-                  ✓ Significantly reduces production costs
-                </li>
-                <li className="opacity-0 animate-[fadeIn_0.5s_0.9s_forwards]">
-                  ✓ But often produces generic, derivative results
-                </li>
-              </ul>
-            </div>
-          </Slide>
+          {slides.map((slide, index) => (
+            <Slide key={index} slideIndex={index}>
+              {slide.component}
+            </Slide>
+          ))}
           {/* ------------------------ */}
         </div>
         <PresentationControls />
