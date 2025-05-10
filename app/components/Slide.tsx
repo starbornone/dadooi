@@ -17,16 +17,20 @@ export function Slide({
   const { currentSlide } = usePresentation();
   const [isVisible, setIsVisible] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
+  const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
     if (currentSlide === slideIndex) {
+      setIsExiting(false);
       setIsVisible(true);
       setAnimationClass(transitionIn);
     } else if (isVisible) {
+      setIsExiting(true);
       setAnimationClass(transitionOut);
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 500); // Match this with your CSS transition duration
+        setIsExiting(false);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [currentSlide, slideIndex, transitionIn, transitionOut, isVisible]);
@@ -36,6 +40,9 @@ export function Slide({
   return (
     <div
       className={`absolute inset-0 transition-all duration-500 ${animationClass}`}
+      style={{
+        zIndex: isExiting ? 10 : currentSlide === slideIndex ? 20 : 0,
+      }}
     >
       {children}
     </div>
