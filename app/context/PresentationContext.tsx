@@ -2,12 +2,12 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface PresentationContextType {
   currentSlide: number;
-  totalSlides: number;
+  goToSlide: (slide: number) => void;
+  isFirstSlide: boolean;
+  isLastSlide: boolean;
   nextSlide: () => void;
   previousSlide: () => void;
-  goToSlide: (slide: number) => void;
-  isLastSlide: boolean;
-  isFirstSlide: boolean;
+  totalSlides: number;
 }
 
 const PresentationContext = createContext<PresentationContextType | undefined>(
