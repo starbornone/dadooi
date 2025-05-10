@@ -15,6 +15,8 @@ export default {
           "Segoe UI Symbol",
           "Noto Color Emoji",
         ],
+        neon: ["Neon", "sans-serif"],
+        "neon-lines": ["Neon Lines", "sans-serif"],
       },
     },
   },
