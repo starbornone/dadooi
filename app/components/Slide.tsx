@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
+
 import { usePresentation } from "~/context/PresentationContext";
 
 interface SlideProps {
@@ -11,8 +12,8 @@ interface SlideProps {
 export function Slide({
   slideIndex,
   children,
-  transitionIn = "fade-in",
-  transitionOut = "fade-out",
+  transitionIn = "slide-in-right",
+  transitionOut = "slide-out-left",
 }: SlideProps) {
   const { currentSlide } = usePresentation();
   const [isVisible, setIsVisible] = useState(false);
