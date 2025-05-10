@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply bg-white dark:bg-gray-950;
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+/* Animation classes */
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+  }
+  
+  .fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.5s ease-in forwards;
+  }
+  
+  .slide-out-left {
+    animation: slideOutLeft 0.5s ease-out forwards;
+  }
+
+  .slide-in-up {
+    animation: slideInUp 0.5s ease-in forwards;
+  }
+  
+  .slide-out-down {
+    animation: slideOutDown 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideOutDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(100%); opacity: 0; }
+}
